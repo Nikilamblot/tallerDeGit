@@ -22,16 +22,12 @@ personas ((a,b):xs) = quitarrepetidos (a : b : personas xs)
 
 quitarrepetidos :: [String] -> [String]
 quitarrepetidos [] = []
-quitarrepetidos (x:xs) | x == head xs = quitarrepetidos xs
-                       | otherwise = head xs : quitarUno xs
+quitarrepetidos (x:xs) | pertenece2 x xs = quitarrepetidos xs
+                       | otherwise = x : quitarrepetidos xs
 
-quitarUno :: [String] -> [String]
-quitarUno [] = []
-quitarUno [x] = [x]
-quitarUno (x:xs) | x == head xs = xs
-                 | otherwise = x : quitarUno xs
 
-{--pertenece2 :: String -> [(String, String)] -> Bool
+
+pertenece2 :: String -> [String] -> Bool
 pertenece2 _ [] = False
 pertenece2 e (x:xs) | e == x = True
-                    | otherwise = pertenece2 e xs--}
+                    | otherwise = pertenece2 e xs
