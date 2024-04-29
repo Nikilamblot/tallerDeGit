@@ -96,8 +96,8 @@ ordenar (x:xs) = minimo (x:xs) : ordenar (quitar (minimo (x:xs)) (x:xs))
 
 minimo :: [Integer] -> Integer
 minimo [x] = x
-minimo (x:y:ys) | x < y = x
-              | otherwise = minimo (y:ys)
+minimo (x:y:xs) | x < y = minimo (x:xs) 
+                | otherwise = minimo (y:xs)
 
 -- Ejercicio 4
 --a)
@@ -215,3 +215,29 @@ nBlancos :: Integer -> [Char]
 nBlancos 0 = []
 nBlancos 1 = [' ']
 nBlancos n = [' '] ++ nBlancos (n - 1)
+
+-- Ejercicio 5.1
+sumaAcumulada :: (Num t) => [t] -> [t]
+sumaAcumulada [] = []
+sumaAcumulada [x] = [x]
+sumaAcumulada (x:y:xs) = x : sumaAcumulada (x+y:xs)
+
+-- Ejercicio 5.2
+descomponerEnPrimos :: [Integer] -> [[Integer]]
+descomponerEnPrimos [] = []
+descomponerEnPrimos (x:xs) = numeroSolo x : descomponerEnPrimos xs
+
+numeroSolo :: Integer -> [Integer]
+numeroSolo n | esPrimo n == True = [n]
+             | otherwise = menorDivisorPrimo n : numeroSolo (div n (menorDivisorPrimo n))
+
+menorDivisorDesde :: Integer -> Integer -> Integer
+menorDivisorDesde x y | x == y = y
+                      | mod x y == 0 = y
+                      | otherwise = menorDivisorDesde x (y+1)
+
+menorDivisorPrimo :: Integer -> Integer
+menorDivisorPrimo n = menorDivisorDesde n 2
+
+esPrimo :: Integer -> Bool
+esPrimo x = menorDivisorPrimo x == x
