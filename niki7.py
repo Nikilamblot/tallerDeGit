@@ -120,7 +120,7 @@ print (borra_pares([1,2,3,4,5]))
 
 # Ejercicio 2.4
 def perteneceChr(lista:list[chr], letra:chr) -> bool:
-    i = 0
+    i:int = 0
     longitud:int = len(lista)
     while i < longitud:
         if letra == lista[i]:
@@ -130,10 +130,10 @@ def perteneceChr(lista:list[chr], letra:chr) -> bool:
     return False
 
 def  reemplaza_vocales(frase:list[chr]) -> list[chr]:
-    i = 0
+    i:int = 0
     longitud:int = len(frase)
     while i < longitud:
-        if pertenece(['a','e','i','o','u'], frase[i]):
+        if perteneceChr(['a','e','i','o','u'], frase[i]):
             frase.remove(frase[i])
             frase.insert(i,'_')
             i += 1
@@ -142,6 +142,68 @@ def  reemplaza_vocales(frase:list[chr]) -> list[chr]:
     return frase
 
 print (reemplaza_vocales(['h','o','l','a']))
+
+# Ejercicio 2.6
+def eliminar_repetidos(frase:str) -> str:
+    i:int = 0
+    fraseNueva:str = []
+    longitud:int = len(frase)
+    while i < longitud:
+        if perteneceChr(fraseNueva, frase[i]):
+            i += 1
+        else:
+            fraseNueva.append(frase[i])
+            i += 1
+    return fraseNueva
+
+print (eliminar_repetidos('holoala'))
+
+# Ejecicio 3
+def notasMayores4(notas:list[int]) -> bool:
+    res = notas.copy()
+    i:int = 0
+    longitud:int = len(res)
+    while i < longitud:
+        if res[i] >= 4:
+            es = True
+            i += 1
+        else:
+            return False
+    return es
+
+print(notasMayores4([7,4,5]))
+
+#def promedio(notas:list[int]) -> float:
+#    res = notas.copy()
+#    i:int = 0
+#    longitud:int = len(res)
+#    total = 0
+#    while i < longitud:
+#        total += res[i]
+#        i+=1
+#    return (total/longitud)
+
+def promedio(notas:list[int]) -> float:
+    res = notas.copy()
+    longitud:int = len(res)
+    total = 0
+    for i in range (0,longitud, 1):
+        total += res[i]
+    return (total/longitud)
+
+print(promedio([7,4,5]))
+
+def aprobado(notas:list[int]) -> int:
+    res = notas.copy()
+    if notasMayores4(res) == True and promedio(res) >= 7:
+        numero = 1
+    elif notasMayores4(res) == True and 4 <= promedio(res) <= 7:
+        numero = 2
+    else:
+        numero = 3
+    return numero
+
+print(aprobado([7,8,9]))
 
 # Ejercicio 5.2
 def pertenece_a_cada_uno_version_2 (lista:list[list[int]], e:int) -> list[bool]:
@@ -159,4 +221,10 @@ def pertenece_a_cada_uno_version_2 (lista:list[list[int]], e:int) -> list[bool]:
     return lista
 
 print (pertenece_a_cada_uno_version_2([[1,2,3,4,5],[5,6,7,8],[3,4,5,6]],4))
+
+
+
+#miLista = [5,2,3]
+#for numero in miLista:
+#    print(numero)
 
