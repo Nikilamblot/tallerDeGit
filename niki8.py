@@ -20,14 +20,29 @@ def copiar_cola(c:Cola) -> Cola:
     while not c.empty():
         cola_aux.put(c.get())
     while not cola_aux.empty():
-        res.put(cola_aux.get())
+        val = cola_aux.get()
+        c.put(val)
+        res.put(val)
     return res
 
+c14 = Cola()
+c14.put(1)
+c14.put(2)
+c14.put(3)
+c14.put(4)
+
+print(copiar_cola(c14))
+
 def perteneceNumeroACola(c:Cola, num:int) -> bool:
+    cola_aux:Cola = Cola()
+    res = False
     while not c.empty():
-        if num == c.get():
-            return True
-    return False
+        elemento = c.get()
+        cola_aux.put(elemento)
+        if num == elemento:
+            res = True
+    c = cola_aux
+    return res
 
 # Ejercicio 1.1
 def contar_lineas(nombre_archivo:str) -> int:
@@ -190,7 +205,7 @@ def cantidad_elementos(p:Pila) -> int:
 
 # Ejercicio 10
 def buscar_el_maximo(p:Pila[int]) -> int:
-    pila:Pila[int] = p
+    pila:Pila[int] = copiar_cola(p)
     maximo:int= pila.get()
     while not pila.empty():
         candidato:int = pila.get()
@@ -303,12 +318,36 @@ def buscar_el_maximo(c:Cola[int]) -> int:
 # Ejercicio 16.1
 def armar_secuencia_de_bingo() -> Cola[int]:
     cola:Cola[int] = Cola()
-    cantidad:int = 100
-    for _ in range (cantidad):
-        numero = random.randint(0,99)
-        if not perteneceNumeroACola(cola,numero):
-            cola.put(numero)
+    lista:list[int] = []
+    for i in range (0,99,1):
+        lista.append(i)
+    lista2:list[int] = random.shuffle(lista)
+    for i in (lista2):
+        cola.put(i)
     return cola
 
 c = armar_secuencia_de_bingo()
 print(c.queue)
+
+print(armar_secuencia_de_bingo())
+
+# Ejercicio 16.2
+
+# diccionario vacío: d:dict = {}
+# diccionario con elementos: {'Messi':3, 'Ronaldo':2}
+# como obtengo el valor de una clave: d['Messi']
+# como cambio el valor de una clave: d['Messi'] = 5
+#                                    d['Messi'] = d['Messi'] + 1
+# como agrego nuevos pares clave y valor: d['Neymar'] = 7
+# 'in' se puede usar sólo para diccionarios
+# d.items() = devuelve una lista de tuplas con los pares (clave,valor)
+
+# Ejercicio 19
+def agrupar_por_longitud(nombre_archivo:str) -> dict:
+    d:dict = {}
+    archivo:typing.IO = open(nombre_archivo, 'r')
+    archivo_lineas:list[str] = archivo.readlines()
+    longitud = len(archivo_lineas)
+    i = 0
+    while i < longitud:
+# ver foto que saqué
