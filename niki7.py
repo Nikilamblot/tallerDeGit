@@ -1,3 +1,5 @@
+import random
+
 # Ejercicio 1.1
 def pertenece (lista:list[int], numero:int) -> bool:
     condicion:bool = True
@@ -23,6 +25,21 @@ def suma_total(lista:list[int])-> int:
     return total
 
 print (suma_total ([1,2,3,4]))
+
+# Ejercicio 1.4
+def ordenados(s:list[int]) -> bool:
+    lista = s.copy()
+    i = 0
+    longitud = len(lista)
+    while i < longitud - 1:
+        if lista[i] < lista[i+1]:
+            res = True
+            i += 1
+        else:
+            return False
+    return res
+
+print(ordenados([1,2,7,4,5]))
 
 # Ejercicio 1.7
 def tiene_minuscula(contra:str) -> bool:
@@ -205,9 +222,70 @@ def aprobado(notas:list[int]) -> int:
 
 print(aprobado([7,8,9]))
 
+# Ejercicio 4.1
+def estudiantes() -> list[str]:
+    alumno:str = input(f"Escriba un nombre: ")
+    lista:list[str] = []
+    while alumno != "Listo":
+        lista.append(alumno)
+        alumno = input(f"Escriba un nombre: ")
+    return lista
+
+#print (estudiantes())
+
+# Ejercicio 4.2
+def monedero_electronico() -> list[(chr,int)]:
+    lista:list[(chr,int)] = []
+    operacion:chr = 'C'
+    while operacion != 'X':
+        operacion:chr = input(f'Operacion a realizar: ')
+        if operacion != 'X':
+            monto:int = int(input(f'Monto para la operacion: '))
+            lista.append((operacion,monto))
+    return lista
+
+#print(monedero_electronico())
+
+# Ejercicio 4.3
+def sieteYmedio() -> list[int]:
+    total:float = 0
+    lista:list[int] = []
+    opciones:list[int] = [1,2,3,4,5,6,7,10,11,12]
+    decision = "si"
+    while decision == "si":
+        numero:int = random.choice(opciones)
+        print('Su carta es: ',numero)
+        if numero == 10 or numero == 11 or numero == 12:
+            total += 0.5
+            print ('Su total es: ',total)
+            lista.append(numero)
+        else:
+            total += numero
+            print ('Su total es: ',total)
+            lista.append(numero)
+        if total <= 7.5:
+            decision = input('Desea sacar otra carta? Si es así, responda "si", y en caso contrario responda "me planto": ')
+        else:
+            decision == "no"
+            return print('Ha perdido, a continuación le dejamos su historial de cartas: ',lista)
+    return lista
+
+#print(sieteYmedio())
+
+def pertenece_a_cada_uno_version_1(s:list[list[int]], e:int) -> list[bool]:
+    lista:list[bool] = []
+    for sublista in s:
+        if pertenece (sublista,e):
+            lista.append(True)
+        else:
+            lista.append(False)
+    return lista
+
+print (pertenece_a_cada_uno_version_1([[1,2,3,5],[5,6,7,8],[3,4,5,6]],4))
+
 # Ejercicio 5.2
 def pertenece_a_cada_uno_version_2 (lista:list[list[int]], e:int) -> list[bool]:
-    i = 0
+    i:int = 0
     longitud:int = len(lista)
     while i < longitud:
         if pertenece (lista[i],e):
@@ -222,6 +300,41 @@ def pertenece_a_cada_uno_version_2 (lista:list[list[int]], e:int) -> list[bool]:
 
 print (pertenece_a_cada_uno_version_2([[1,2,3,4,5],[5,6,7,8],[3,4,5,6]],4))
 
+# Ejercicio 5.3
+def mismaLongitud(lista:list[list[int]]) -> bool:
+    i = 0
+    longitud = len(lista)
+    while i < longitud - 1:
+        if len(lista[i]) == len(lista[i+1]):
+            res = True
+            i += 1
+        else:
+            return False
+    return res
+
+print(mismaLongitud([[1,2,3,4,5],[5,6,7,8,5],[3,4,5,6,7]]))
+
+def es_matriz(s:list[list[int]]) -> bool:
+    lista = s.copy()
+    longitud = len(lista)
+    if longitud > 0 and len(lista[0]) > 0 and mismaLongitud(lista) == True:
+        return True
+    else:
+        return False
+
+print(es_matriz([[1,2,3,4,5],[5,6,7,8,5],[3,4,5,6]]))
+
+# Ejercicio 5.4
+def filas_ordenadas(m:list[list[int]]) -> list[bool]:
+    lista:list[bool] = []
+    for sublista in m:
+        if ordenados(sublista) == True:
+            lista.append(True)
+        else:
+            lista.append(False)
+    return lista
+
+print(filas_ordenadas([[1,2,3,4,5],[5,6,7,8,5],[3,4,5,6]]))
 
 
 #miLista = [5,2,3]
